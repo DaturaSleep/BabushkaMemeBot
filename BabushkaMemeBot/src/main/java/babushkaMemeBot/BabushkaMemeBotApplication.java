@@ -19,17 +19,17 @@ public class BabushkaMemeBotApplication {
 	}
 
 	private static void registerBot() {
-		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
 				BabushkaMemeBotApplication.class);
 
 		TelegramBotsApi botsApi = new TelegramBotsApi();
 
 		try {
-			botsApi.registerBot(ctx.getBean(TelegramBotService.class));
+			botsApi.registerBot(context.getBean(TelegramBotService.class));
 		} catch (TelegramApiException e) {
 			e.printStackTrace();
 		}
 
-		ctx.close();
+		context.close();
 	}
 }
