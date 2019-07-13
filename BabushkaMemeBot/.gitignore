@@ -1,0 +1,19 @@
+#My ignore
+
+#Eclipse settings
+.settings/
+
+#All properties files
+*.properties
+
+#Maven target folder
+target/
+
+#Log files
+*.log
+
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+
+#Eclipse core
+.project
