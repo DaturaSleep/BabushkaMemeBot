@@ -15,7 +15,13 @@ public class User {
 
 	@Column(name = "username", nullable = true)
 	private String username;
-
+	
+	@Column(name = "first_name",nullable = true)
+	private String firstName;
+	
+	@Column(name = "second", nullable = true)
+	private String secondName;
+	
 	public User() {
 
 	}
