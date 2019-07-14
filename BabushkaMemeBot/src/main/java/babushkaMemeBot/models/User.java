@@ -2,8 +2,11 @@ package babushkaMemeBot.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import babushkaMemeBot.enums.UserStatus;
 
 @Entity
 @Table(name = "user")
@@ -15,23 +18,28 @@ public class User {
 
 	@Column(name = "username", nullable = true)
 	private String username;
-	
-	@Column(name = "first_name",nullable = true)
+
+	@Column(name = "first_name", nullable = true)
 	private String firstName;
-	
+
 	@Column(name = "second", nullable = true)
 	private String lastName;
-	
+
+	@Enumerated
+	@Column(name = "status", nullable = false, columnDefinition = "smallint")
+	private UserStatus userStatus;
+
 	public User() {
-		
+
 	}
 
-	public User(Long id, String username,String firstName,String lastName) {
+	public User(Long id, String username, String firstName, String lastName) {
 		this();
 		this.setId(id);
 		this.setUsername(username);
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
+		this.setUserStatus(UserStatus.ACTIVE);
 	}
 
 	public Long getId() {
@@ -64,5 +72,13 @@ public class User {
 
 	protected void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	protected UserStatus getUserStatus() {
+		return userStatus;
+	}
+
+	protected void setUserStatus(UserStatus userStatus) {
+		this.userStatus = userStatus;
 	}
 }
