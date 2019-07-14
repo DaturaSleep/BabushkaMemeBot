@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import babushkaMemeBot.BabushkaMemeBotApplication;
 import babushkaMemeBot.dao.impl.UserDAOImpl;
+import babushkaMemeBot.services.UserService;
 
 @Configuration
 public class ApplicationConfiguration {
@@ -17,5 +18,10 @@ public class ApplicationConfiguration {
 	@Bean
 	public UserDAOImpl userDAOImpl() {
 		return new UserDAOImpl();
+	}
+	
+	@Bean
+	public UserService userService() {
+		return new UserService();
 	}
 }
