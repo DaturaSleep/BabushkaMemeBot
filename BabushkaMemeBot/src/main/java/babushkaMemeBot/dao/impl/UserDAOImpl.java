@@ -27,10 +27,15 @@ public class UserDAOImpl implements UserDAO {
 		@SuppressWarnings("unchecked")
 		TypedQuery<User> typedQuery = sessionFactory.getCurrentSession().createQuery("From User u where u.id =:id");
 		typedQuery.setParameter("id", id);
+		List<User> resultList = typedQuery.getResultList();
 
-		return typedQuery.getSingleResult();
+		if (!resultList.isEmpty()) {
+			return resultList.get(0);
+		} else {
+			return null;
+		}
 	}
-	
+
 	@Transactional
 	public void saveUser(User user) {
 		sessionFactory.getCurrentSession().saveOrUpdate(user);
@@ -43,7 +48,8 @@ public class UserDAOImpl implements UserDAO {
 
 	public void deleteUserById(Long id) {
 		@SuppressWarnings("unchecked")
-		TypedQuery<User> typedQuery = sessionFactory.getCurrentSession().createQuery("Delete From User u where u.id =:id");
+		TypedQuery<User> typedQuery = sessionFactory.getCurrentSession()
+				.createQuery("Delete From User u where u.id =:id");
 		typedQuery.setParameter("id", id);
 		typedQuery.executeUpdate();
 	}
