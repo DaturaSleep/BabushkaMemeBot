@@ -20,15 +20,18 @@ public class User {
 	private String firstName;
 	
 	@Column(name = "second", nullable = true)
-	private String secondName;
+	private String lastName;
 	
 	public User() {
-
+		
 	}
 
-	public User(Long id, String username) {
+	public User(Long id, String username,String firstName,String lastName) {
+		this();
 		this.setId(id);
 		this.setUsername(username);
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
 	}
 
 	public Long getId() {
@@ -45,5 +48,21 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	protected String getFirstName() {
+		return firstName;
+	}
+
+	protected void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	protected String getLastName() {
+		return lastName;
+	}
+
+	protected void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 }
