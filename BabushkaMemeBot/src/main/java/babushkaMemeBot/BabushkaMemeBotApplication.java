@@ -30,6 +30,5 @@ public class BabushkaMemeBotApplication {
 			e.printStackTrace();
 		}
 
-		context.close();
 	}
 }

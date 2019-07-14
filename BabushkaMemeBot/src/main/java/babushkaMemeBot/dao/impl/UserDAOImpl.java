@@ -5,10 +5,13 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import babushkaMemeBot.dao.UserDAO;
 import babushkaMemeBot.models.User;
 
+@Repository
 public class UserDAOImpl implements UserDAO {
 
 	@Autowired
@@ -27,7 +30,8 @@ public class UserDAOImpl implements UserDAO {
 
 		return typedQuery.getSingleResult();
 	}
-
+	
+	@Transactional
 	public void saveUser(User user) {
 		sessionFactory.getCurrentSession().saveOrUpdate(user);
 	}

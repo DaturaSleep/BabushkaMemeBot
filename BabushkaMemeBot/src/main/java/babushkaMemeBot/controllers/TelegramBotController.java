@@ -1,23 +1,32 @@
 package babushkaMemeBot.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import babushkaMemeBot.dao.UserDAO;
+import babushkaMemeBot.models.User;
+
 public class TelegramBotController extends TelegramLongPollingBot {
+	
+	@Autowired
+	UserDAO userRepository;
+	
 	private String botToken;
 
 	private String botUsername;
 
 	public void onUpdateReceived(Update update) {
 		if (update.hasMessage() && update.getMessage().hasText()) {
-			SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
+			SendMessage message = new SendMessage() 
 					.setChatId(update.getMessage().getChatId()).setText(update.getMessage().getText());
-			System.out.println(update.getMessage().getChat().getUserName());
-
+			String name = update.getMessage().getChat().getUserName();
+			Long id = update.getMessage().getChat().getId();
+			userRepository.saveUser(new User(id,name));
 			try {
-				execute(message); // Call method to send the message
+				execute(message); 
 			} catch (TelegramApiException e) {
 				e.printStackTrace();
 			}
