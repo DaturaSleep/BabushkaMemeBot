@@ -6,27 +6,30 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import babushkaMemeBot.dao.UserDAO;
-import babushkaMemeBot.models.User;
+import babushkaMemeBot.services.UserService;
 
 public class TelegramBotController extends TelegramLongPollingBot {
-	
+
 	@Autowired
-	UserDAO userRepository;
-	
+	UserService userService;
+
 	private String botToken;
 
 	private String botUsername;
 
 	public void onUpdateReceived(Update update) {
 		if (update.hasMessage() && update.getMessage().hasText()) {
-			SendMessage message = new SendMessage() 
-					.setChatId(update.getMessage().getChatId()).setText(update.getMessage().getText());
-			String name = update.getMessage().getChat().getUserName();
+			SendMessage message = new SendMessage().setChatId(update.getMessage().getChatId())
+					.setText(update.getMessage().getText());
 			Long id = update.getMessage().getChat().getId();
-			userRepository.saveUser(new User(id,name));
+			String name = update.getMessage().getChat().getUserName();
+			String firstName = update.getMessage().getChat().getFirstName();
+			String lastName = update.getMessage().getChat().getLastName();
+
+			userService.loginUser(id, name, firstName, lastName);
+			
 			try {
-				execute(message); 
+				execute(message);
 			} catch (TelegramApiException e) {
 				e.printStackTrace();
 			}
