@@ -19,6 +19,8 @@ public class BabushkaMemeBotApplication {
 	}
 
 	private static void initBot() {
+
+		@SuppressWarnings("resource")
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
 				BabushkaMemeBotApplication.class);
 
