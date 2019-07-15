@@ -36,19 +36,11 @@ public class ScheduledService {
 		for (final JsonNode jsonObject : returnNode) {
 			refreshedMemeTemplateList.add(jsonMapper.treeToValue(jsonObject, MemeTemplate.class));
 		}
-		System.out.println(refreshedMemeTemplateList.size());
-	}
 
-	@PostConstruct
-	public void test() {
-		try {
-			refreshMemeTemplates();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (refreshedMemeTemplateList.size() > 0) {
+			memeTemplateRepository.deleteMemeTemplates();
+			memeTemplateRepository.saveMemeTemplates(refreshedMemeTemplateList);
 		}
 	}
+
 }
