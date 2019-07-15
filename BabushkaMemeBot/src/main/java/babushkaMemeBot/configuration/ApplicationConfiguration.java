@@ -3,6 +3,8 @@ package babushkaMemeBot.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import babushkaMemeBot.BabushkaMemeBotApplication;
 import babushkaMemeBot.dao.impl.MemeTemplateDAOImpl;
 import babushkaMemeBot.dao.impl.UserDAOImpl;
@@ -29,5 +31,10 @@ public class ApplicationConfiguration {
 	@Bean
 	public MemeTemplateDAOImpl memeTemplateDAOImpl() {
 		return new MemeTemplateDAOImpl();
+	}
+	
+	@Bean
+	public ObjectMapper objectMapper() {
+		return new ObjectMapper();
 	}
 }
