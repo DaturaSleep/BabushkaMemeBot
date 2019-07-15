@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import babushkaMemeBot.BabushkaMemeBotApplication;
+import babushkaMemeBot.dao.impl.MemeTemplateDAOImpl;
 import babushkaMemeBot.dao.impl.UserDAOImpl;
 import babushkaMemeBot.services.UserService;
 
@@ -23,5 +24,10 @@ public class ApplicationConfiguration {
 	@Bean
 	public UserService userService() {
 		return new UserService();
+	}
+	
+	@Bean
+	public MemeTemplateDAOImpl memeTemplateDAOImpl() {
+		return new MemeTemplateDAOImpl();
 	}
 }
