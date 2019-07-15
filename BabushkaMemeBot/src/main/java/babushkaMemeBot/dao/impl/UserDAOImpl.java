@@ -31,9 +31,10 @@ public class UserDAOImpl implements UserDAO {
 
 		if (!resultList.isEmpty()) {
 			return resultList.get(0);
-		} else {
-			return null;
 		}
+
+		return null;
+
 	}
 
 	@Transactional
