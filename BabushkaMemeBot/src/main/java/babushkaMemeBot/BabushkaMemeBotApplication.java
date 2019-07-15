@@ -14,6 +14,7 @@ import babushkaMemeBot.controllers.TelegramBotController;
 public class BabushkaMemeBotApplication {
 
 	public static void main(String args[]) {
+		System.setProperty("http.agent", "Mozilla");
 		ApiContextInitializer.init();
 		initBot();
 	}
