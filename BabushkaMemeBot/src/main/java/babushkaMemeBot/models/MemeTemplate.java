@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.URL;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "meme_template")
 public class MemeTemplate {
@@ -52,7 +54,8 @@ public class MemeTemplate {
 		this.setBoxCount(boxCount);
 
 	}
-
+	
+	@JsonProperty("id")
 	public Long getId() {
 		return id;
 	}
@@ -60,7 +63,8 @@ public class MemeTemplate {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
+	@JsonProperty("name")
 	public String getName() {
 		return name;
 	}
@@ -68,7 +72,8 @@ public class MemeTemplate {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	@JsonProperty("url")
 	public String getUrl() {
 		return url;
 	}
@@ -76,7 +81,8 @@ public class MemeTemplate {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
+	
+	@JsonProperty("width")
 	public Integer getWidth() {
 		return width;
 	}
@@ -84,7 +90,8 @@ public class MemeTemplate {
 	public void setWidth(Integer width) {
 		this.width = width;
 	}
-
+	
+	@JsonProperty("height")
 	public Integer getHeight() {
 		return height;
 	}
@@ -92,7 +99,8 @@ public class MemeTemplate {
 	public void setHeight(Integer height) {
 		this.height = height;
 	}
-
+	
+	@JsonProperty("box_count")
 	public Integer getBoxCount() {
 		return boxCount;
 	}
