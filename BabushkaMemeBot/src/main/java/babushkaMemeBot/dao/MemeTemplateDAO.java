@@ -11,6 +11,8 @@ public interface MemeTemplateDAO {
 	public MemeTemplate getMemeTemplate(Long id);
 
 	public void saveMemeTemplate(MemeTemplate memeTemplate);
+	
+	public void saveMemeTemplates(List<MemeTemplate> listOfMemeTemplates);
 
 	public void deleteMemeTemplate(MemeTemplate memeTemplate);
 
