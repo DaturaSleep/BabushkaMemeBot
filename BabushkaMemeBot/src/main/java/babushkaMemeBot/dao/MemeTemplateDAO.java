@@ -10,7 +10,7 @@ public interface MemeTemplateDAO {
 
 	public MemeTemplate getMemeTemplate(Long id);
 
-	public void saveMemeTemplate();
+	public void saveMemeTemplate(MemeTemplate memeTemplate);
 
 	public void deleteMemeTemplate(MemeTemplate memeTemplate);
 
