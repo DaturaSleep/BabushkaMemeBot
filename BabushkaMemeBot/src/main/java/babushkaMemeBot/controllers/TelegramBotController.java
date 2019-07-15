@@ -1,17 +1,24 @@
 package babushkaMemeBot.controllers;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import babushkaMemeBot.services.ScheduledService;
 import babushkaMemeBot.services.UserService;
 
 public class TelegramBotController extends TelegramLongPollingBot {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	ScheduledService scheduledService;
 
 	private String botToken;
 
@@ -27,7 +34,15 @@ public class TelegramBotController extends TelegramLongPollingBot {
 			String lastName = update.getMessage().getChat().getLastName();
 
 			userService.loginUser(id, name, firstName, lastName);
-			
+			try {
+				scheduledService.refreshMemeTemplates();
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			try {
 				execute(message);
 			} catch (TelegramApiException e) {
