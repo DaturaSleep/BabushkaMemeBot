@@ -64,4 +64,11 @@ public class MemeTemplateDAOImpl implements MemeTemplateDAO {
 		typedQuery.executeUpdate();
 	}
 
+	public void saveMemeTemplates(List<MemeTemplate> listOfMemeTemplates) {
+		for (MemeTemplate memeTemplate : listOfMemeTemplates) {
+			saveMemeTemplate(memeTemplate);
+		}
+
+	}
+
 }
