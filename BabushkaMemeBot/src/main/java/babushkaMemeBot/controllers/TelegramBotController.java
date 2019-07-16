@@ -3,6 +3,8 @@ package babushkaMemeBot.controllers;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -35,21 +37,25 @@ public class TelegramBotController extends TelegramLongPollingBot {
 
 			userService.loginUser(id, name, firstName, lastName);
 			try {
-				scheduledService.refreshMemeTemplates();
-			} catch (MalformedURLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			try {
 				execute(message);
 			} catch (TelegramApiException e) {
 				e.printStackTrace();
 			}
 		}
 
+	}
+
+	@PostConstruct
+	public void dbPopulate() {
+		try {
+			scheduledService.refreshMemeTemplates();
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	public String getBotUsername() {
