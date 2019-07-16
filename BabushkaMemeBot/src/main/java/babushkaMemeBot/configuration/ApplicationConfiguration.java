@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import babushkaMemeBot.BabushkaMemeBotApplication;
 import babushkaMemeBot.dao.impl.MemeTemplateDAOImpl;
 import babushkaMemeBot.dao.impl.UserDAOImpl;
-import babushkaMemeBot.services.ScheduledService;
 import babushkaMemeBot.services.UserService;
 
 @Configuration
