@@ -18,7 +18,6 @@ import babushkaMemeBot.dao.MemeTemplateDAO;
 import babushkaMemeBot.models.MemeTemplate;
 
 @Service
-@PropertySource("classpath:schedule.properties")
 public class ScheduledService {
 
 	@Autowired
