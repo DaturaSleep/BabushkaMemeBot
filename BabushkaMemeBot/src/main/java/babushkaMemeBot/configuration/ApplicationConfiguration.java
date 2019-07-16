@@ -39,9 +39,5 @@ public class ApplicationConfiguration {
 		return new ObjectMapper();
 	}
 	
-	@Bean
-	public ScheduledService scheduledService() {
-		return new ScheduledService();
-	}
 	
 }
