@@ -7,10 +7,14 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import babushkaMemeBot.keyboard.Keyboard;
 import babushkaMemeBot.services.ScheduledService;
 import babushkaMemeBot.services.UserService;
 
@@ -20,6 +24,9 @@ public class TelegramBotController extends TelegramLongPollingBot {
 	UserService userService;
 
 	@Autowired
+	Keyboard keyboard;
+
+	@Autowired
 	ScheduledService scheduledService;
 
 	private String botToken;
@@ -27,19 +34,37 @@ public class TelegramBotController extends TelegramLongPollingBot {
 	private String botUsername;
 
 	public void onUpdateReceived(Update update) {
-		if (update.hasMessage() && update.getMessage().hasText()) {
-			SendMessage message = new SendMessage().setChatId(update.getMessage().getChatId())
-					.setText(update.getMessage().getText());
-			Long id = update.getMessage().getChat().getId();
-			String name = update.getMessage().getChat().getUserName();
-			String firstName = update.getMessage().getChat().getFirstName();
-			String lastName = update.getMessage().getChat().getLastName();
 
-			userService.loginUser(id, name, firstName, lastName);
-			try {
-				execute(message);
-			} catch (TelegramApiException e) {
-				e.printStackTrace();
+		try {
+			processUpdate(update);
+		} catch (TelegramApiException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void processUpdate(Update update) throws TelegramApiException {
+		if (update.hasMessage() && update.getMessage().hasText() && !update.getMessage().hasAudio()) {
+
+			String messageText = update.getMessage().getText();
+			Long id = update.getMessage().getChat().getId();
+
+			if (keyboard.hasName(messageText)) {
+
+				execute(new SendPhoto().setChatId(id).setPhoto(keyboard.getUrlForName(messageText)));
+
+			} else {
+				switch (messageText) {
+				case "/start":
+					String name = update.getMessage().getChat().getUserName();
+					String firstName = update.getMessage().getChat().getFirstName();
+					String lastName = update.getMessage().getChat().getLastName();
+
+					userService.loginUser(id, name, firstName, lastName);
+
+					execute(new SendMessage().setChatId(id).setText("Welcome").setReplyMarkup(keyboard.getKeyboard()));
+					break;
+				}
 			}
 		}
 
@@ -50,10 +75,8 @@ public class TelegramBotController extends TelegramLongPollingBot {
 		try {
 			scheduledService.refreshMemeTemplates();
 		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
