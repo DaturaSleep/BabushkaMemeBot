@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +24,7 @@ public class ScheduledService {
 
 	@Autowired
 	ObjectMapper jsonMapper;
-	
+
 	@Scheduled(cron = "0 4 */2 * * *")
 	@Transactional
 	public void refreshMemeTemplates() throws MalformedURLException, IOException {
