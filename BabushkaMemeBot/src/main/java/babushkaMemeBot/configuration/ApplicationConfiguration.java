@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import babushkaMemeBot.BabushkaMemeBotApplication;
 import babushkaMemeBot.dao.impl.MemeTemplateDAOImpl;
 import babushkaMemeBot.dao.impl.UserDAOImpl;
+import babushkaMemeBot.keyboard.Keyboard;
 import babushkaMemeBot.services.UserService;
 
 @Configuration
@@ -22,21 +23,25 @@ public class ApplicationConfiguration {
 	public UserDAOImpl userDAOImpl() {
 		return new UserDAOImpl();
 	}
-	
+
 	@Bean
 	public UserService userService() {
 		return new UserService();
 	}
-	
+
 	@Bean
 	public MemeTemplateDAOImpl memeTemplateDAOImpl() {
 		return new MemeTemplateDAOImpl();
 	}
-	
+
 	@Bean
 	public ObjectMapper objectMapper() {
 		return new ObjectMapper();
 	}
-	
-	
+
+	@Bean
+	public Keyboard keyboard() {
+		return new Keyboard();
+	}
+
 }
